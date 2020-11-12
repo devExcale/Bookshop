@@ -38,7 +38,7 @@ public class AdminController {
 
 		ModelAndView mav = new ModelAndView("admin/edit");
 
-		System.out.println(book);
+
 
 		return mav;
 	}
