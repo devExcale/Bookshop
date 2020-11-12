@@ -6,3 +6,9 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+/dataSources.xml
+/dataSources/
+/artifacts/
+/dictionaries/
+/libraries/
+/discord.xml
