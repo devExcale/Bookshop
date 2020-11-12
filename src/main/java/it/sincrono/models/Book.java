@@ -2,11 +2,13 @@ package it.sincrono.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 @Document(collection = "books")
@@ -25,6 +27,7 @@ public class Book {
 
 	private Float price;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date publishDate;
 
 	private List<Author> authors;
@@ -102,6 +105,13 @@ public class Book {
 		return this;
 	}
 
+	public void setTagslist(String tags) {
+		this.tags = Arrays.stream(tags.split("[\n\r]+"))
+				.map(String::trim)
+				.filter(s -> s.length() > 0)
+				.toArray(String[]::new);
+	}
+
 	public Book setPrice(Float price) {
 		this.price = price;
 		return this;
@@ -120,6 +130,12 @@ public class Book {
 	public Book setAuthors(Author... authors) {
 		this.authors = new LinkedList<>(Arrays.asList(authors));
 		return this;
+	}
+
+	public void setAuthorslist(String authors) {
+		this.authors = Arrays.stream(authors.split("[\n\r]+"))
+				.map(fullname -> new Author(fullname.trim()))
+				.collect(Collectors.toList());
 	}
 
 	@Override

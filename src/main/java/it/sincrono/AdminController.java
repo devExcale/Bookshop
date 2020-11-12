@@ -34,9 +34,11 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView editPost(@RequestParam Book book) {
+	public ModelAndView editPost(Book book) {
 
 		ModelAndView mav = new ModelAndView("admin/edit");
+
+		System.out.println(book);
 
 		return mav;
 	}

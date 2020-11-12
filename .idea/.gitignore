@@ -2,7 +2,12 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../:\Users\escac\IdeaProjects\Bookshop\.idea/dataSources/
+/dataSources/
+/dataSources.xml
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+/artifacts/
+
+/discord.xml
+/libraries

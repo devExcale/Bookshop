@@ -65,7 +65,7 @@
 								<a th:text="*{#strings.listJoin(authors, ', ')}"></a>
 							</div>
 							<div class="col p-3 border d-flex justify-content-end">
-								<a th:text="*{#dates.format(publishDate, 'dd/MM/yyyy')}"></a>
+								<a th:text="*{#dates.format(publishDate, 'dd-MM-yyyy')}"></a>
 							</div>
 							<div class="col p-3 border d-flex justify-content-end">
 								<a th:text="*{#numbers.formatDecimal(price, 1, 2) + '€'}"></a>
