@@ -3,8 +3,8 @@
 
 	<head>
 
-		<title>Books</title>
 		<meta charset="UTF-8">
+		<title>Libro aggiunto!</title>
 
 		<!--/* Bootstrap stylesheet */-->
 		<link rel="stylesheet"
@@ -19,19 +19,17 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 				integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 				crossorigin="anonymous"></script>
-
 	</head>
 
 	<body class="m-3">
 		<div class="d-flex justify-content-center w-100">
 			<div class="container-lg justify-content-center m-3">
 
-				<h1>Books</h1>
+				<h1 class="my-3">Libro con ISBN <i th:text="${savedBook.isbn}"></i> aggiunto con successo!</h1>
 
-				<!--/* Table */-->
 				<div>
 					<!--/* Table Head */-->
-					<div class="row mt-3 bg-light">
+					<div class="row bg-light">
 						<div class="col p-3 border d-flex justify-content-center">
 							<b>ISBN</b>
 						</div>
@@ -51,53 +49,56 @@
 							<b>Info</b>
 						</div>
 					</div>
+				</div>
 
-					<!--/* Table Rows */-->
-					<div th:each="book: ${books}" th:object="${book}">
-						<div class="row">
-							<div class="col p-3 border d-flex justify-content-start">
-								<a th:text="*{isbn}"></a>
-							</div>
-							<div class="col p-3 border d-flex justify-content-start">
-								<a th:text="*{title}"></a>
-							</div>
-							<div class="col p-3 border d-flex justify-content-start">
-								<a th:text="*{#strings.listJoin(authors, ', ')}"></a>
-							</div>
-							<div class="col p-3 border d-flex justify-content-end">
-								<a th:text="*{#dates.format(publishDate, 'dd-MM-yyyy')}"></a>
-							</div>
-							<div class="col p-3 border d-flex justify-content-end">
-								<a th:text="*{#numbers.formatDecimal(price, 1, 2) + '€'}"></a>
-							</div>
-							<div class="col p-3 border d-flex justify-content-center">
-								<div>
-									<a href="#"
-											class="btn btn-outline-success"
-											data-toggle="collapse"
-											th:data-target="|${'#'}info-*{isbn}|">Mostra</a>
-								</div>
-							</div>
+				<div th:object="${savedBook}">
+					<div class="row">
+						<div class="col p-3 border d-flex justify-content-center">
+							<b th:text="*{isbn}"></b>
 						</div>
-						<div class="collapse" th:id="|info-*{isbn}|">
-							<div class="row border">
-								<div class="col-2 border">
-									<h5>Tags:</h5>
-									<div class="d-flex flex-column">
-										<a th:each="tag: *{tags}" th:text="${tag}"></a>
-									</div>
-								</div>
-								<div class="col-2 border">
-									<h5>Lingua:</h5>
-									<p th:text="*{#strings.capitalize(language)}"></p>
-								</div>
-								<div class="col border">
-									<h5>Descrizione</h5>
-									<p th:text="*{description}"></p>
-								</div>
+						<div class="col p-3 border d-flex justify-content-start">
+							<a th:text="*{title}"></a>
+						</div>
+						<div class="col p-3 border d-flex justify-content-start">
+							<a th:text="*{#strings.listJoin(authors, ', ')}"></a>
+						</div>
+						<div class="col p-3 border d-flex justify-content-end">
+							<a th:text="*{#dates.format(publishDate, 'dd/MM/yyyy')}"></a>
+						</div>
+						<div class="col p-3 border d-flex justify-content-end">
+							<a th:text="*{#numbers.formatDecimal(price, 1, 2) + '€'}"></a>
+						</div>
+						<div class="col p-3 border d-flex justify-content-center">
+							<div>
+								<a href="#"
+										class="btn btn-outline-success"
+										data-toggle="collapse"
+										data-target="#savedBook">Mostra</a>
 							</div>
 						</div>
 					</div>
+					<div class="collapse" id="savedBook">
+						<div class="row border">
+							<div class="col-2 border">
+								<h5>Tags:</h5>
+								<div class="d-flex flex-column">
+									<a th:each="tag: *{tags}" th:text="${tag}"></a>
+								</div>
+							</div>
+							<div class="col-2 border">
+								<h5>Lingua:</h5>
+								<p th:text="*{#strings.capitalize(language)}"></p>
+							</div>
+							<div class="col border">
+								<h5>Descrizione</h5>
+								<p th:text="*{description}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="my-3">
+					<a href="/admin/home">Clicca qui per proseguire</a>
 				</div>
 
 			</div>

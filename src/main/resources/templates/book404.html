@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Libro inesistente</title>
+	</head>
+
+	<body>
+
+		<h1>Non ho trovato il libro</h1>
+		<p>Il libro che stavi cercando, con ISBN <i th:text="${bookIsbn}"></i>, non è stato trovato.</p>
+		<p>Clicca <a th:href="${goBackUrl}">qui</a> per tornare indietro.</p>
+
+	</body>
+
+</html>

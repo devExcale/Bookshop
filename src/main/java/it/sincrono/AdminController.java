@@ -33,16 +33,6 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView editPost(Book book) {
-
-		ModelAndView mav = new ModelAndView("admin/edit");
-
-
-
-		return mav;
-	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editGet(@RequestParam(required = false) String id) {
 
@@ -61,6 +51,65 @@ public class AdminController {
 			mav.addObject("book", book.get());
 
 		}
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView editPost(Book book, @RequestParam(required = false) String edit, @RequestParam(required = false) String delete) {
+
+		ModelAndView mav;
+
+		if(edit != null) {
+
+			Optional<Book> optional = bookRepository.findById(book.getIsbn());
+
+			if(optional.isPresent()) {
+
+				mav = new ModelAndView("admin/edit_success");
+				mav.addObject("oldBook", optional.get());
+				mav.addObject("newBook", book);
+
+				bookRepository.save(book);
+			} else
+				mav = new ModelAndView("book404").addObject("bookIsbn", book.getIsbn())
+						.addObject("goBackUrl", "/admin/home");
+
+		} else if(delete != null) {
+
+			Optional<Book> optional = bookRepository.findById(book.getIsbn());
+
+			if(optional.isPresent()) {
+
+				mav = new ModelAndView("admin/delete_success");
+				mav.addObject("deletedBook", optional.get());
+
+				bookRepository.delete(optional.get());
+
+			} else
+				mav = new ModelAndView("book404").addObject("bookIsbn", book.getIsbn());
+
+		} else
+			mav = new ModelAndView("redirect:admin/home");
+
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView addGet() {
+
+		return new ModelAndView("/admin/add");
+
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addPost(Book book) {
+
+		ModelAndView mav = new ModelAndView("admin/add_success");
+
+		book = bookRepository.save(book);
+		mav.addObject("savedBook", book);
 
 		return mav;
 	}

@@ -14,14 +14,14 @@ public class Author {
 
 	public Author(String fullname) {
 		String[] split = fullname.split(" ");
-		name = split[0];
+		name = split[0].trim();
 
 		StringBuilder sb = new StringBuilder();
 
 		for(int i = 1; i < split.length; i++)
 			sb.append(split[i]);
 
-		surname = sb.toString();
+		surname = sb.toString().trim();
 	}
 
 	public Author(String name, String surname) {
